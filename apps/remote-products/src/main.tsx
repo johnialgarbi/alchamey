@@ -1,14 +1,28 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
 import './msw/browser';
+import theme from './styles/theme';
+import { store } from './store/store';
+import { Provider } from 'react-redux'
 import ProductList from './ProductList';
+import { createRoot } from 'react-dom/client';
+import { Toaster } from './components/Toaster'
+import { Box, ChakraProvider } from "@chakra-ui/react";
 
 function DevPage() {
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', padding: 16 }}>
-      <h1 style={{ fontSize: 20 }}>Remote Products (Dev Playground)</h1>
-      <ProductList featureFlags={{ showRatings: true }} />
-    </div>
+    <Provider store={store}>
+      <ChakraProvider value={theme}>
+        <Toaster />
+        <Box
+          width='100%'
+          height='100%'
+          margin='0 auto'
+          padding='0 16px'
+          maxWidth='1400px'
+        >
+          <ProductList featureFlags={{ showRatings: true }} />
+        </Box>
+      </ChakraProvider> 
+    </Provider>
   );
 }
 
